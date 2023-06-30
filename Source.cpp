@@ -15,45 +15,31 @@ void SET_COLOR(int color)
 }
 
 //Giao dien MENU
-void MENU() {
-
-
+void MENU()
+{
 	system("cls");
-
 	SET_COLOR(10);
 	cout << "******************************************************************************\n\n";
-
 	SET_COLOR(12);
 	cout << "                          A COURSE MANAGEMENT SYSTEM                          \n\n";
-
 	SET_COLOR(10);
 	cout << "**********************************   MENU   **********************************\n\n";
-
 }
 
 void menuSystem()
 {
 	system("cls");
-
 	SET_COLOR(10);
 	cout << "******************************************************************************\n\n";
-
 	SET_COLOR(12);
 	cout << "                          A COURSE MANAGEMENT SYSTEM                          \n\n";
-
 	SET_COLOR(10);
 	cout << "**********************************   MENU   **********************************\n\n";
-
 	SET_COLOR(15);
-
 	cout << "1. VEW YOUR PROFILE INFO." << endl;
-
 	cout << "2. CHANGE THE PASSWORD." << endl;
-
 	cout << "3. A COURSE MANAGEMENT SYSTEM." << endl;
-
 	cout << "0. LOG OUT THE SYSTEM." << endl;
-
 	cout << "\nEnter your choice: ";
 }
 
@@ -363,25 +349,16 @@ void view1StYearClass(Class*& C)
 void menuCreateSchoolYear(int nam)
 {
 	SET_COLOR(10);
-
 	cout << "******************************************************************************\n\n";
-
 	SET_COLOR(12);
 	cout << "                      WELCOME TO THE SCHOOL YEAR " << nam << "                \n\n";
-
 	SET_COLOR(10);
 	cout << "******************************************************************************\n\n";
-
 	SET_COLOR(14);
-
 	cout << "1. Create classes." << endl;
-
 	cout << "2. View a list of class." << endl;
-
 	cout << "3. view a list of student in class." << endl;
-
 	cout << "0. Exit!" << endl;
-
 	cout << "\nEnter your choice: ";
 }
 
@@ -420,9 +397,11 @@ void createSchoolYear(Class*& C, Student*& S)
 
 			cin.ignore();
 
-			int i = 0;
+			int cnt = 0;
 
-			while (i < numClasses)
+			int no = 1;
+
+			while (cnt < numClasses)
 			{
 				string className;
 
@@ -432,7 +411,7 @@ void createSchoolYear(Class*& C, Student*& S)
 
 				getline(cin, className);
 
-				C[i].students = new Student[cntStudent()];
+				C[cnt].students = new Student[cntStudent()];
 
 				ofstream ClassFile("Student_1st_year.csv",ios::app);
 
@@ -443,26 +422,26 @@ void createSchoolYear(Class*& C, Student*& S)
 					continue;
 				}
 
-				int cnt = 0;
+				int numStudent = 0;
 
 				for (int j = 0; j < number; j++)
 				{
 					if (S[j].className == className)
 					{
-						ClassFile << to_string(cnt + 1) << "," << S[j].studentID << "," 
+						ClassFile << to_string( no ) << "," << S[j].studentID << "," 
 							<< S[j].firstName << "," << S[j].lastName << "," << S[j].dateOfBirth <<"," << S[j].gender
 							<< "," << S[j].socialID << "," << S[j].className << "," << S[j].password << endl;
 
-						Student stu = { to_string(cnt + 1), S[j].studentID, S[j].firstName,
+						Student stu = { to_string( no ), S[j].studentID, S[j].firstName,
 							S[j].lastName, S[j].dateOfBirth, S[j].gender,
 							S[j].socialID, S[j].className, S[j].password };
 
-						C[i].students[cnt++] = stu;
+						C[cnt].students[numStudent++] = stu;
 
 						check = true;
+						no++;
 					}
 				}
-
 				if (!check)
 				{
 					cout << "Invalid class name." << endl;
@@ -471,13 +450,13 @@ void createSchoolYear(Class*& C, Student*& S)
 				else
 				{
 					cout << "The student information has been added to " << className << endl;
-					C[i].numStudents = cnt;
-					C[i].className = className;
+					C[cnt].numStudents = numStudent;
+					C[cnt].className = className;
 					ClassFile.seekp(0, ios::beg);
 				}
 
 				ClassFile.close();
-				i++;
+				cnt++;
 			}
 
 			system("pause");
@@ -1389,13 +1368,10 @@ void menuYearEndReview()
 {
 	SET_COLOR(10);
 	cout << "******************************************************************************\n\n";
-
 	SET_COLOR(12);
 	cout << "                              YEAR END REVIEW                                 \n\n";
-
 	SET_COLOR(10);
 	cout << "******************************************************************************\n\n";
-
 	SET_COLOR(15);
 	cout << "1. Import the scoreboard of a course." << endl;
 	cout << "2. View the scoreboard of a course." << endl;
@@ -1726,6 +1702,7 @@ void viewScoreboardClass(Course*& courses, int numCourse)
 	}
 }
 
+// TONG KET NAM HOC
 void yearEndReview(Course*& courses, int& numcourse)
 {
 	bool gradesEntered = false;
@@ -1836,6 +1813,7 @@ void yearEndReview(Course*& courses, int& numcourse)
 
 //************************ [ NHIEM VU CUA SINH VIEN ] ****************************
 
+// Ham bo tro kiem tra tinh hop le va vi tri
 bool checkStudentAppeared(Course*& courses, Student*& student, int& indexStu, string courseID, int& numCourses)
 {
 	for (int i = 0; i < numCourses; i++)
@@ -1870,6 +1848,7 @@ int findStudentCourse(Course*& courses, Student*& student, int*& indexCourses, i
 	return cnt;
 }
 
+// Dang ky hoc phan
 void registerCourses(Course*& courses, Student*& student, int *&indexCourses ,int indexStu, int numCourses)
 {
 	viewCourses(courses, numCourses);
@@ -1929,6 +1908,7 @@ void registerCourses(Course*& courses, Student*& student, int *&indexCourses ,in
 	}
 }
 
+//Xem lich trinh hoc tap trong hoc ki nay
 void viewSchedule(Course*& courses, Student*& student, int*& indexCourses, int& indexStu, int& numCourses)
 {
 	int cnt = findStudentCourse(courses, student, indexCourses, indexStu, numCourses);
@@ -1969,6 +1949,7 @@ void viewSchedule(Course*& courses, Student*& student, int*& indexCourses, int& 
 	}
 }
 
+//Xem danh sach hoc sinh trong khoa hoc da dang ky
 void viewStudentYourCourses(Course*& courses, Student*& student, int*& indexCourses, int indexStu, int numCourses)
 {
 	int cnt = findStudentCourse(courses, student, indexCourses, indexStu, numCourses);
@@ -2003,6 +1984,7 @@ void viewStudentYourCourses(Course*& courses, Student*& student, int*& indexCour
 	}
 }
 
+//Xem danh sach cac hoc sinh cung lop
 void viewStudentYourClass(Course* &courses, Student* &student, int& indexStu, int& numCourses)
 {
 	// Tao mot mang danh dau sinh vien co mat
@@ -2050,6 +2032,7 @@ void viewStudentYourClass(Course* &courses, Student* &student, int& indexStu, in
 	}
 }
 
+//Xem bang diem cua minh
 void viewYourScorebroad(Course*& courses, Student*& student, int& indexStu, int& numCourses)
 {
 	SET_COLOR(14);
