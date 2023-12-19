@@ -2,7 +2,9 @@
 
 ## Project Description
 This project is a student management application written in the C++ programming language. It helps manage information about students, courses, and other related data in an educational system.
-
+![image](https://github.com/Tienanh204/A-Course-Management-System/assets/131262099/07733f74-b14d-4a8f-8c7d-9ce25aea969f)
+![image](https://github.com/Tienanh204/A-Course-Management-System/assets/131262099/67bb7581-30ac-4849-90b2-99950083f8fd)
+![image](https://github.com/Tienanh204/A-Course-Management-System/assets/131262099/5b945158-6719-4cc1-80c8-0c668f058118)
 ## Key Features
 1. **Add Students:**
    - Functionality to allow users to add new student information to the system, including name, student ID, date of birth, etc.
